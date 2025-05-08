@@ -34,12 +34,27 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Center(
           child: StreamBuilder(
             stream: counterController.stream,
-            builder: (context, snapshot) {},
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(
+                  snapshot.data.toString(),
+                  style: TextStyle(fontSize: 70, fontWeight: FontWeight.bold),
+                );
+              } else {
+                return Text(
+                  "0",
+                  style: TextStyle(fontSize: 70, fontWeight: FontWeight.bold),
+                );
+              }
+            },
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          counter++;
+          counterController.sink.add(counter);
+        },
         child: Icon(Icons.add),
       ),
     );
